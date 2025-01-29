@@ -1,0 +1,49 @@
+from requests import get
+from pprint import pprint
+import json
+
+api_url = 'https://business.juso.go.kr/addrlink/addrLinkApiJsonp.do'
+key = 'devU01TX0FVVEgyMDIzMDkxNjE0NDc1MzExNDEwODU='
+
+def search_address(keyword, page, limit):
+    params = {
+        'keyword': keyword, 'currentPage': page, 'countPerPage': limit,
+        'confmKey': key, 'resultType': 'Json'}
+
+    res = get(api_url, params=params)
+
+    # print(res.text)
+    results = json.loads(res.text.strip('(').strip(')'))['results']
+
+    # pprint(results)
+    total = results['common']['totalCount']
+    return results['juso'], total
+
+if __name__ == '__main__':
+    keyword = input('검색어 입력: ')
+    page = input('검색 페이지(기본 1): ')
+    limit = input('페이지당 검색 수(기본10): ')
+
+    page = int(page) if page else 1
+    limit = int(limit) if limit else 10
+
+    addresses, total = search_address(keyword, page, limit)
+
+    print('{}개의 결과'.format(total))
+    for i, addr in enumerate(addresses):
+        num = limit * (page - 1) + i + 1
+        print('{:3d}) {}, {}'.format(num, addr['zipNo'], addr['roadAddr']))
+
+
+
+
+
+
+
+
+
+
+
+
+
+

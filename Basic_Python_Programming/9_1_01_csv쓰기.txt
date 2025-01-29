@@ -1,0 +1,11 @@
+import csv
+
+people = [
+    ['홍길동',20] , ['임꺽정',30] , ['유관순',17] , ['전우치',25]]
+
+with open('people.csv', 'wt', newline='', encoding='utf-8') as fout: # newline 을 없다고 하지 않으면 데이터간 간격이 한줄씩 띄어져있다.
+    csvout = csv.writer(fout)
+    for row in people:
+        csvout.writerow(row)
+
+

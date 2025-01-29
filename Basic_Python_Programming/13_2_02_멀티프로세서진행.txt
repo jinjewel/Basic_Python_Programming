@@ -1,0 +1,27 @@
+from multiprocessing import Process
+import os
+import time
+import random
+
+def do_this(what, count=1):
+    whoami(what, count)
+
+def whoami(what, count):
+    loop = 1
+    while loop <= count:
+        sleep = random.randint(0,5)
+        print('%d) Process %d says: %s, sleep: %d sec' % (loop, os.getpid(), what, sleep) )
+        time.sleep(sleep)
+        loop += 1
+
+if __name__ == '__main__':
+    do_this("i'm the main process")
+
+    process_list = [Process(target=do_this, args=("i'm Function %d " % i , 5)) for i in range(1,5)]
+    for p in process_list:
+        p.start()
+
+    time.sleep(10)
+
+    for p in process_list:
+        p.terminate()

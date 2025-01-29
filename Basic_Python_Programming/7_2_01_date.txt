@@ -1,0 +1,25 @@
+import time
+
+class Date:
+    def __init__(self, year, month, day):
+        self.year = year
+        self.month = month
+        self.day = day
+
+    @staticmethod
+    def now():
+        t = time.localtime() # 시스탬의 현재 시간을 가져옴
+        return Date(t.tm_year, t.tm_mon, t.tm_mday)
+
+    @staticmethod
+    def tomorrow():
+        t = time.localtime(time.time() + 86400) # 하루는 86400초
+        return Date(t.tm_year, t.tm_mon, t.tm_mday)
+
+a = Date(1967, 4, 7)
+b = Date.now() # 객체를 사용할 필요 없이 클래스 그대로 가져온다.
+c = Date.tomorrow()
+
+print(a.year, a.month, a.day)
+print(b.year, b.month, b.day)
+print(c.year, c.month, c.day)

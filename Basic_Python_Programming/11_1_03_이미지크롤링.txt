@@ -1,0 +1,23 @@
+from urllib.request import urlopen
+import re
+
+def get_data(url):
+    conn = urlopen(url)
+    if 200 <= conn.status < 300:
+        return conn.read().decode('utf-8')
+    else:
+        return None
+def get_img_urls(html_data):
+    pattern = re.compile(r'\"imageUrl\":\"(.*?)\"')
+    return pattern.findall(data)
+
+
+# url 입력
+url = input('Input url : ')
+
+data = get_data(url)
+result = get_img_urls(data)
+
+# 이미지 url 출력
+for img in result:
+    print(img)

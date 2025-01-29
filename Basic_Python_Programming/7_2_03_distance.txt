@@ -1,0 +1,14 @@
+import math
+
+class Distance:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+    def __call__(self, x, y):
+        return math.sqrt((self.x - x) ** 2 + (self.y - y) ** 2)
+
+distance = Distance(0, 0)
+print(distance(4,3))
+print(distance(8,7))
+

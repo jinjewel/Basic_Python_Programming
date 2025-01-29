@@ -1,0 +1,24 @@
+import subprocess
+
+result = subprocess.getoutput('dir')
+print('dir'.center(80, '='))
+print(result)
+
+
+result = subprocess.getoutput('dir venv')
+print('dir venv'.center(80, '='))
+print(result)
+
+
+result = subprocess.getstatusoutput('dir')
+print('dir'.center(80, '='))
+print('status =', result[0])
+print('result: ')
+print(result[1], end='\n\n')
+
+
+result = subprocess.getstatusoutput('dir unknown')
+print('dir unknown'.center(80, '='))
+print('status =', result[0])
+print('result: ')
+print(result[1], end='\n\n')

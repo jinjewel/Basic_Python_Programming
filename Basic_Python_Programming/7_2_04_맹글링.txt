@@ -1,0 +1,16 @@
+class Person:
+    def __int__(self, name, age):
+        self.name = name
+        self.__age = age
+
+    def __get_name(self):
+        return self.name
+    def get_age(self):
+        return self.__age
+
+person = Person('홍길동', 20)
+print(person.name)
+print(person.get_age())
+print(person.__age) # Error
+print(person.__get_name()) # Error
+print(person._Person__age)

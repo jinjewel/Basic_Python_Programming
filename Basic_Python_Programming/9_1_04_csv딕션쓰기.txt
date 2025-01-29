@@ -1,0 +1,13 @@
+import csv
+
+people = [
+    {'name':'홍길동', 'age':20},
+    {'name':'임꺽정', 'age':30},
+    {'name':'유관순', 'age':17},
+    {'name':'전우치', 'age':25}
+]
+
+with open('people2.csv', 'wt', newline='') as fout:
+    csvout = csv.DictWriter(fout, ['name','age'])
+    csvout.writeheader()
+    csvout.writerows(people)

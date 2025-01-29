@@ -1,0 +1,21 @@
+from urllib.request import urlopen
+
+url = 'https://en.wikipedia.org/wiki/Python_(programming_language)'
+
+conn = urlopen(url)
+print(conn)  # HTTPResponse
+
+data = conn.read()  # 웹 페이지로부터 데이터를 읽어옴
+print(data)
+print(data.decode('utf-8'))
+
+print(conn.status)  # HTTP 응답코드 출력(다음 페이지 설명)
+# 2XX : 성공
+# 3XX : 리다리렉트
+# 4XX : 클라이언트에서 에러
+# 5XX : 서버에서 에러
+
+print(conn.getheader('Content-Type'))  # Content-Type 정보 출력
+
+for key, value in conn.getheaders():
+    print(key, value)  # 헤더 정보들을 출력

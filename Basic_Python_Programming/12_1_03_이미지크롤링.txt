@@ -1,0 +1,46 @@
+import re
+import requests
+from bs4 import BeautifulSoup as soup
+
+def get_google_image_urls(keyword):
+    ptn = re.compile(r'^http?://')
+    base_url = 'https://www.google.com/search'
+    params = {'q': keyword,'tbm': 'isch'}
+    res = requests.get(base_url, params=params)
+    doc = soup(res.text, 'html.parser')
+    return [e.get('src') for e in doc.find_all('img')]
+
+def download_image(url, filename):
+    try:
+        res = requests.get(url)
+        if res.status_code != 200:
+            return ''
+        type = res.headers['content-Type']
+        if type == 'image/jpeg':
+            ext = '.jpg'
+        elif type == 'image/png':
+            ext = '.png'
+        elif type == 'image/gif':
+            ext = '.gif'
+        else:
+            return ''
+
+        filename = '{}{}'.format(filename, ext)
+
+        with open(filename, 'wb') as f:
+            f.write(res.content)
+        return filename
+    except:
+        return ''
+
+
+if __name__ == '__main__':
+    keywords = ['강아지','고양이']
+    urls = []
+    for keyword in keywords:
+        urls = [*urls, *get_google_image_urls(keyword)]
+
+    for i, url in enumerate(urls, start=1):
+        filename = download_image(url, '{:03d}'.format(i))
+        if filename:
+            print('download {} --> {}'.format(url, filename))

@@ -1,0 +1,11 @@
+import requests
+
+url = 'https://en.wikipedia.org/wiki/Python_(programming_language)'
+res = requests.get(url)
+
+print(res)
+print(res.status_code)
+print(res.text)
+for k, v in res.headers.items():
+    print(k, v)
+

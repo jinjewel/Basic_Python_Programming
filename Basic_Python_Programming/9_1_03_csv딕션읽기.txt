@@ -1,0 +1,8 @@
+import csv
+
+with open('people.csv', 'rt', encoding='utf-8') as fin:
+    csvin = csv.DictReader(fin, fieldnames=['name','age'])
+    people = [row for row in csvin]
+
+print(people)
+print(sum(int(row['age']) for row in people) / len(people))

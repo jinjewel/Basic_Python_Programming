@@ -1,0 +1,14 @@
+import json
+
+people = [
+    {'name':'홍길동', 'age':20},
+    {'name':'임꺽정', 'age':30}
+]
+
+people_json = json.dumps(people)
+print('1)', type(people_json))
+print('2)', people_json)
+print('3)', json.dumps(people, ensure_ascii=False))
+
+with open('people.json', 'wt', newline='',encoding='utf-8') as file:
+    json.dump(people, file, ensure_ascii=False)
